@@ -1,6 +1,22 @@
-# Fastmail Sender Categorization API
+# Fastmail Sender Categorization
 
-A Node.js API for categorizing email senders by adding them to Fastmail contact groups via CardDAV.
+A monorepo containing an Apple Shortcuts integration and Node.js API for categorizing email senders by adding them to Fastmail contact groups via CardDAV.
+
+## Components
+
+This monorepo contains two main components:
+
+### Apple Shortcut (`shortcut/`)
+- Share sheet integration for iOS/macOS
+- Quick categorization from Mail.app or other email clients
+- Template shortcut file included (requires configuration)
+
+### Node.js API (`api/`)
+- RESTful API for programmatic access
+- CardDAV integration with Fastmail
+- Bearer token authentication for security
+- Direct UID-based contact/group access for performance
+- Ready for fly.io deployment
 
 ## Features
 
@@ -9,9 +25,6 @@ A Node.js API for categorizing email senders by adding them to Fastmail contact 
 - Remove email addresses from groups
 - Create new groups
 - List all groups and get group members
-- Bearer token authentication for security
-- Direct UID-based contact/group access for performance
-- Ready for fly.io deployment
 
 ## API Endpoints
 
@@ -104,50 +117,77 @@ PORT=3000
 NODE_ENV=development
 ```
 
-## Local Development
+## Setup
 
-1. Install dependencies:
+### Apple Shortcut Setup
+
+1. Import the template shortcut:
+   - Open `shortcut/Categorize Sender Template.shortcut` in the Shortcuts app
+   - Configure the API endpoint URL (your deployed API or localhost for testing)
+   - Set your API bearer token
+   - Save the shortcut
+
+2. Usage:
+   - Use from share sheet in Mail.app or other email clients
+   - Select sender's email to categorize
+   - Choose appropriate category (Paper Trail, Feed, Firehose)
+
+### API Development
+
+1. Navigate to the API directory:
+```bash
+cd api
+```
+
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-2. Copy environment template:
+3. Copy environment template:
 ```bash
 cp .env.example .env
 ```
 
-3. Edit `.env` with your Fastmail credentials
+4. Edit `.env` with your Fastmail credentials
 
-4. Start development server:
+5. Start development server:
 ```bash
 npm run dev
 ```
 
-## Fly.io Deployment
+## API Deployment
 
-1. Install flyctl:
+### Fly.io Deployment
+
+1. Navigate to the API directory:
+```bash
+cd api
+```
+
+2. Install flyctl:
 ```bash
 curl -L https://fly.io/install.sh | sh
 ```
 
-2. Login to Fly.io:
+3. Login to Fly.io:
 ```bash
 fly auth login
 ```
 
-3. Launch the app:
+4. Launch the app:
 ```bash
 fly launch
 ```
 
-4. Set environment variables:
+5. Set environment variables:
 ```bash
 fly secrets set FASTMAIL_USERNAME=your-email@domain.com
 fly secrets set FASTMAIL_PASSWORD=your-app-password
 fly secrets set API_BEARER_TOKEN=your-secure-api-token
 ```
 
-5. Deploy:
+6. Deploy:
 ```bash
 fly deploy
 ```

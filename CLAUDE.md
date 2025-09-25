@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This repository is for a Fastmail sender categorization application. It provides an API to automatically categorize email senders by adding them to appropriate Fastmail contact groups via CardDAV.
+This is a monorepo for a Fastmail sender categorization application consisting of two components:
+1. An Apple shortcut that can be used from a share sheet
+2. An API that the shortcut will hit to automatically categorize email senders by adding them to appropriate Fastmail contact groups via CardDAV
 
 ## Node.js Version
 
@@ -31,11 +33,12 @@ This is a Node.js API for categorizing email senders by managing Fastmail contac
 
 ## Project Structure
 
-- `src/` - Main application source code
-  - `index.js` - Express API server with authentication
-  - `carddav-client.js` - CardDAV client for Fastmail integration
-  - `utils/validation.js` - Input validation utilities
-- `fly.toml` - Fly.io deployment configuration
-- `.env.example` - Environment variables template
-- `Dockerfile` - Container configuration
-- `package.json` - Node.js dependencies and scripts
+- `api/` - Node.js API server
+  - `src/` - Main application source code
+    - `index.js` - Express API server with authentication
+    - `carddav-client.js` - CardDAV client for Fastmail integration
+  - `fly.toml` - Fly.io deployment configuration
+  - `.env.example` - Environment variables template
+  - `Dockerfile` - Container configuration
+  - `package.json` - Node.js dependencies and scripts
+- `shortcut/` - Apple shortcut component (to be added)
