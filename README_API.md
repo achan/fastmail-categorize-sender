@@ -1,15 +1,16 @@
-# Fastmail Group Manager API
+# Fastmail Sender Categorization API
 
-A Node.js cloud function for managing Fastmail contact groups via CardDAV.
+A Node.js API for categorizing email senders by adding them to Fastmail contact groups via CardDAV.
 
 ## Features
 
-- Add email addresses to Fastmail groups
+- Categorize email senders by adding them to appropriate Fastmail groups
+- Create contacts and automatically assign to groups (Paper Trail, Feed, Firehose)
 - Remove email addresses from groups
 - Create new groups
-- List all groups
-- Get group members
-- Secure API with validation
+- List all groups and get group members
+- Bearer token authentication for security
+- Direct UID-based contact/group access for performance
 - Ready for fly.io deployment
 
 ## API Endpoints
@@ -17,6 +18,7 @@ A Node.js cloud function for managing Fastmail contact groups via CardDAV.
 ### Add Email to Group
 ```
 POST /api/groups/members
+Authorization: Bearer YOUR_API_TOKEN
 Content-Type: application/json
 
 {
@@ -97,6 +99,7 @@ Create a `.env` file based on `.env.example`:
 CARDDAV_BASE_URL=https://carddav.fastmail.com
 FASTMAIL_USERNAME=your-email@domain.com
 FASTMAIL_PASSWORD=your-app-password
+API_BEARER_TOKEN=your-secure-api-token
 PORT=3000
 NODE_ENV=development
 ```
@@ -141,6 +144,7 @@ fly launch
 ```bash
 fly secrets set FASTMAIL_USERNAME=your-email@domain.com
 fly secrets set FASTMAIL_PASSWORD=your-app-password
+fly secrets set API_BEARER_TOKEN=your-secure-api-token
 ```
 
 5. Deploy:
@@ -153,6 +157,7 @@ fly deploy
 ### Add email to "Paper Trail" group:
 ```bash
 curl -X POST https://your-app.fly.dev/api/groups/members \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"email": "newmember@example.com", "groupName": "Paper Trail"}'
 ```
@@ -205,7 +210,20 @@ curl -X POST https://your-app.fly.dev/api/contacts \
 
 ## Authentication
 
+**API Authentication:**
+All API endpoints (except `/health`) require a Bearer token in the Authorization header:
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+**Fastmail Authentication:**
 The API uses your Fastmail credentials to authenticate with the CardDAV server. Make sure to use an app-specific password if you have 2FA enabled.
+
+**Known Groups:**
+The API has built-in support for these groups:
+- Paper Trail
+- Feed
+- Firehose
 
 ## Error Handling
 

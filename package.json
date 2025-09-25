@@ -1,7 +1,7 @@
 {
-  "name": "fastmail-group-manager",
+  "name": "fastmail-categorize-sender",
   "version": "1.0.0",
-  "description": "Node.js API to manage Fastmail contact groups via CardDAV",
+  "description": "Node.js API to categorize email senders by adding them to Fastmail contact groups via CardDAV",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
@@ -24,7 +24,7 @@
   "engines": {
     "node": ">=18"
   },
-  "keywords": ["fastmail", "carddav", "contacts", "groups", "api"],
+  "keywords": ["fastmail", "carddav", "contacts", "groups", "api", "categorize", "sender"],
   "author": "Your Name",
   "license": "MIT"
 }
