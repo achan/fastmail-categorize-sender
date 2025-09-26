@@ -58,6 +58,10 @@ const KNOWN_GROUPS = {
   'firehose': {
     uid: '59758f7a-88de-40c2-937e-2a0229738f55',
     name: 'Firehose'
+  },
+  'bulletin': {
+    uid: '4123ba9d-d71f-4ddc-ba81-1ee4ec9a7d8e',
+    name: 'Bulletin'
   }
 };
 
